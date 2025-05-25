@@ -1,0 +1,165 @@
+/* styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Default (light) theme variables */
+  --color-primary: theme('colors.light.primary');
+  --color-secondary: theme('colors.light.secondary');
+  --color-accent: theme('colors.light.accent');
+  --color-neutral: theme('colors.light.neutral');
+  --color-base-100: theme('colors.light.base-100');
+  --color-base-200: theme('colors.light.base-200');
+  --color-base-300: theme('colors.light.base-300');
+  --color-content: theme('colors.light.content');
+  --color-content-alt: theme('colors.light.content-alt');
+
+  /* Apply the default light theme background and text colors */
+  background-color: var(--color-base-100);
+  color: var(--color-content);
+
+  font-family: var(--font-inter), sans-serif;
+  @apply antialiased transition-colors duration-500 ease-in-out; /* Smooth transition for theme change */
+}
+
+/* Dark mode overrides */
+body.dark { /* THIS IS THE CORRECT SELECTOR */
+  --color-primary: theme('colors.dark.primary');
+  --color-secondary: theme('colors.dark.secondary');
+  --color-accent: theme('colors.dark.accent');
+  --color-neutral: theme('colors.dark.neutral');
+  --color-base-100: theme('colors.dark.base-100');
+  --color-base-200: theme('colors.dark.base-200'); /* This defines the dark base-200 */
+  --color-base-300: theme('colors.dark.base-300');
+  --color-content: theme('colors.dark.content');
+  --color-content-alt: theme('colors.dark.content-alt');
+
+  background-color: var(--color-base-100); /* Dark mode base background */
+  color: var(--color-content);             /* Dark mode text color */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins), sans-serif;
+  color: var(--color-content); /* Ensure headings also use theme color */
+}
+
+/* Custom Tailwind classes for color variables */
+.bg-theme-primary { background-color: var(--color-primary); }
+.bg-theme-secondary { background-color: var(--color-secondary); }
+.bg-theme-accent { background-color: var(--color-accent); }
+.bg-theme-neutral { background-color: var(--color-neutral); }
+.bg-theme-base-100 { background-color: var(--color-base-100); }
+.bg-theme-base-200 { background-color: var(--color-base-200); }
+.bg-theme-base-300 { background-color: var(--color-base-300); }
+.text-theme-primary { color: var(--color-primary); }
+.text-theme-secondary { color: var(--color-secondary); }
+.text-theme-accent { color: var(--color-accent); }
+.text-theme-content { color: var(--color-content); }
+.text-theme-content-alt { color: var(--color-content-alt); }
+.border-theme-primary { border-color: var(--color-primary); }
+.border-theme-content-300 { border-color: var(--color-base-300); } /* For borders */
+
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-base-200);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 9999px; /* rounded-full */
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}
+
+/* General link styling */
+a {
+  color: var(--color-primary);
+  @apply hover:underline transition-colors duration-200;
+}
+
+/* Specific nav link styling */
+.nav-link {
+   @apply transition duration-300;
+   color: var(--color-content);
+}
+.nav-link:hover {
+  color: var(--color-primary);
+}
+/* Active nav link for Header.js */
+.nav-link.active-link {
+  color: var(--color-primary);
+  @apply font-bold relative;
+}
+.nav-link.active-link::after {
+  content: '';
+  @apply absolute bottom-0 left-0 h-[2px] w-full bg-theme-primary;
+}
+
+/* Specific styles for card hover and splashes */
+.card-hover-effect {
+  @apply transition duration-500 ease-in-out transform hover:-translate-y-2;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* default shadow */
+}
+body.dark .card-hover-effect { /* THIS IS THE CORRECT SELECTOR */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* ... further down in globals.css ... */
+body.dark .blob-background { /* THIS IS THE CORRECT SELECTOR */
+  opacity: 0.05; /* Dark mode opacity */
+}
+.card-hover-effect:hover {
+  box-shadow:
+    0 0 5px var(--color-primary),
+    0 0 15px var(--color-primary),
+    0 0 30px var(--color-primary),
+    0 0 40px var(--color-primary);
+}
+
+/* Splash/Blob container styles */
+.blob-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.1; /* Light mode opacity */
+  overflow: hidden; /* Ensure blobs don't leak */
+}
+
+.blob-shape {
+  border-radius: 9999px; /* Makes it circular */
+  mix-blend-mode: multiply; /* Blends colors nicely */
+  filter: blur(80px); /* Blurs the shapes */
+  opacity: 0.7;
+  position: absolute;
+}
+
+/* Animation delays for staggered effects */
+.animation-delay-200 { animation-delay: 0.2s; }
+.animation-delay-400 { animation-delay: 0.4s; }
+.animation-delay-600 { animation-delay: 0.6s; }
+.animation-delay-800 { animation-delay: 0.8s; }
+.animation-delay-1000 { animation-delay: 1s; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+.animation-delay-6000 { animation-delay: 6s; }
+
+
+/* Flip Card specific CSS */
+.ease-flip {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+[transform-style="preserve-3d"] {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
